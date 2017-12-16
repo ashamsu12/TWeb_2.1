@@ -24,6 +24,7 @@ $password = "TSMSWeb";
 $db = "tsmsdb";
 
 //Data
+$team_name = $_POST["team_name"];
 $uni = $_POST["puni"];
 $mentor = $_POST["mname"];
 $email = $_POST["memail"];
@@ -52,53 +53,76 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 //echo "Connected successfully";
-$sql = "INSERT INTO teams (Tname, mentor, Institution, Event, pname, pcat, pdesc, memail)
-VALUES ('$tname', '$mentor', '$uni','$event','$pname','$cat','$desc','$email')";
-    if ($conn->query($sql) === TRUE) {
-   // echo "New record created successfully";
-} else {
-//    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-$sql = "INSERT INTO students (name, team, eventid)
-VALUES ('$stu1', '$tname', '$eventid')";
-    if ($conn->query($sql) === TRUE) {
-  //  echo "New record created successfully";
-} else {
-//    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-$sql = "INSERT INTO students (name, team, eventid)
-VALUES ('$stu2', '$tname', '$eventid')";
-    if ($conn->query($sql) === TRUE) {
-  //  echo "New record created successfully";
-} else {
-//    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-$sql = "INSERT INTO students (name, team, eventid)
-VALUES ('$stu3', '$tname', '$eventid')";
-    if ($conn->query($sql) === TRUE) {
-    //echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-$sql = "INSERT INTO students (name, team, eventid)
-VALUES ('$stu4', '$tname', '$eventid')";
-    if ($conn->query($sql) === TRUE) {
-   // echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
 
-    if(!empty($prequest)){
-$sql = "INSERT INTO request (team, email, request, event, status )
-VALUES ('$tname', '$email','$prequest','$event','pending')";
-    if ($conn->query($sql) === TRUE) {
-    //echo "Req created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
+//validating team name[to ensure uniqueness]
+$validateQuery = "SELECT Tname FROM teams";
+$stmt = $conn->prepare($validateQuery);
+$result = $stmt->execute();
+
+    if ($result) {
+      foreach($result as $team_pointer){
+        switch($team_pointer){
+            case $team_pointer == $team_name:
+              header("http://localhost/Tweb_2.1/php/register.php?eventid=1&err=E400")
+              break;
+            case $team_pointer != $team_name:
+              saveDetails()
+              break;
+        }
+      }
+    } else {
+       //if result is not "true" then it might be a db connection error. Handle it!
     }
-$conn->close();
 
+function saveDetails(){
+
+    $sql = "INSERT INTO teams (Tname, mentor, Institution, Event, pname, pcat, pdesc, memail)
+    VALUES ('$tname', '$mentor', '$uni','$event','$pname','$cat','$desc','$email')";
+        if ($conn->query($sql) === TRUE) {
+    // echo "New record created successfully";
+    } else {
+    //    echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $sql = "INSERT INTO students (name, team, eventid)
+    VALUES ('$stu1', '$tname', '$eventid')";
+        if ($conn->query($sql) === TRUE) {
+    //  echo "New record created successfully";
+    } else {
+    //    echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $sql = "INSERT INTO students (name, team, eventid)
+    VALUES ('$stu2', '$tname', '$eventid')";
+        if ($conn->query($sql) === TRUE) {
+    //  echo "New record created successfully";
+    } else {
+    //    echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $sql = "INSERT INTO students (name, team, eventid)
+    VALUES ('$stu3', '$tname', '$eventid')";
+        if ($conn->query($sql) === TRUE) {
+        //echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $sql = "INSERT INTO students (name, team, eventid)
+    VALUES ('$stu4', '$tname', '$eventid')";
+        if ($conn->query($sql) === TRUE) {
+    // echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+        if(!empty($prequest)){
+    $sql = "INSERT INTO request (team, email, request, event, status )
+    VALUES ('$tname', '$email','$prequest','$event','pending')";
+        if ($conn->query($sql) === TRUE) {
+        //echo "Req created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+        }
+    $conn->close();
+}
 
 ?>
           <div id="header" class="l-header">

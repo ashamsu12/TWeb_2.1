@@ -64,8 +64,8 @@
         <div class="container">
             <div class="row margin-top">
                 <div class="col-lg-4 col-md-4 col-xs-12">
-                    <div class="left" >
-                        <img src="../images/dum.jpg">
+                    <div class="left deet">
+                        <div><img src="../images/dum.jpg"></div>
                         <p id="name">Name: Test</p>
                         <p id="date">Date: 01-01-2010</p>
                         <p id="loc"> Location: Dubai Marina</p>
@@ -90,7 +90,7 @@
                                         </div>
                                     </div>
                                     <form id="ppp">
-                                      <ul id="plot" class="row margin-top">
+                                      <ul id="plot" class="row margin-top tm-list">
                                     
                                     </ul>
                                         </form>

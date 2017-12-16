@@ -169,12 +169,22 @@
                                 <fieldset class="form-horizontal "> 
                                     <div class="form-group">
                                         <h2>Team details</h2>
-                                       
+                                        <?php
+                                          if(isset($_GET["err"]) and $_GET["err"] == "E400"){
+                                              echo "<p style='color:indianred;font-weight:600'>Sorry!Your Team name has already been selected.</p>";
+                                          }
+                                        ?>
                                         <div class="col-sm-8">
-                                            <input required="true" name="puni" class="form-control" type="text" id="formGroupInputLarge" placeholder="Institution">
+                                            <input required="true" name="teamName" class="form-control" type="text" id="formGroupInputLarge" placeholder="Team name">
                                         </div>
                                     </div>
                                  
+                                    <div class="form-group">
+                                        <div class="col-sm-8">
+                                            <input required="true" name="puni" class="form-control" type="text" id="formGroupInputLarge" placeholder="Institution">
+                                        </div>
+                                          
+                                    </div>
                                     
                                     <div class="form-group">
                                    
