@@ -1,0 +1,199 @@
+/* The version of Bourbon used in this Pen was 4.* */
+@import "bourbon";
+
+// Media Query Ranges
+$small-screen-up: 601px !default;
+$medium-screen-up: 993px !default;
+$large-screen-up: 1201px !default;
+$small-screen: 600px !default;
+$medium-screen: 992px !default;
+$large-screen: 1200px !default;
+
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
+$large-and-up: "only screen and (min-width : #{$medium-screen-up})" !default;
+$small-and-down: "only screen and (max-width : #{$small-screen})" !default;
+$medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;
+$clr0: #fff;
+$clr1: #09f;
+
+/* Base
+-------------------------- */
+
+body {
+  background: $clr0;
+  color: #454545;
+}
+
+a {
+  color: $clr1;
+  &:hover{
+      color: darken($clr1, 10%);
+   }
+}
+
+
+@mixin column-count($ct) {
+  -webkit-column-count: $ct;
+  -moz-column-count: $ct;
+  column-count: $ct;
+}
+
+.cards-container {
+  column-break-inside: avoid;
+  .card {
+    transform: translateZ(0);
+    display: inline-block;
+    overflow: visible;
+  }
+}
+
+@media #{$small-and-down} {
+  .cards-container {
+    @include column-count(1);
+  }
+}
+@media #{$medium-and-up} {
+  .cards-container {
+    @include column-count(2);
+  }
+}
+@media #{$large-and-up} {
+  .cards-container {
+    @include column-count(3);
+  }
+}
+
+
+/// Styles for demo
+.text-center {
+  text-align: center;
+}
+button {
+  -webkit-font-smoothing: antialiased;
+  background-color: $clr1;
+  border: none;
+  border-radius: 0.1875em;
+  color: white;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 1;
+  padding: .75em 1em;
+  text-decoration: none;
+  &:hover{
+      background-color: darken($clr1, 10%);
+      color: white;
+   }
+}
+
+
+/* Header
+-------------------------- */
+
+.l-header {
+	height: 80px;
+	position: relative;
+	background: #212121;
+}
+
+.logo {
+	float: left;
+   &__title {
+     margin: 0;
+   }
+	&__link {
+		display: inline-block;
+      text-decoration: none;
+		padding: 0 10px;
+		line-height: 80px;
+		height: 80px;
+		color: #fff;
+		word-wrap: no-wrap;
+	}
+}
+
+.menu-btn {
+	display: none;
+	position: absolute;
+	right: 10px;
+	top: 20px;
+}
+
+@media (max-width: 768px){
+	.logo {
+		float: none;
+	}
+	.menu-btn {
+		display: block;
+	}
+}
+
+/*  Menu
+-------------------------- */
+
+.menu {
+	float: right;
+	&__list {
+		overflow: hidden;
+      padding-left: 0;
+      margin: 0;
+      list-style: none;
+	}
+	&__item{
+		float: left;
+		text-align: center;
+		text-align: center;
+	}
+	&__link{
+		display: block;
+      color: #fff;
+      text-decoration: none;
+		line-height:em(80, 16);
+		height: em(80, 16);
+		padding: 0 1.5em;
+		word-wrap: no-wrap;
+		transition: all .3s ease;
+		&:hover, &:focus {
+			background: $clr1;
+			color: #fff;
+		}
+	}
+}
+
+@media (max-width: 768px){
+	.menu {
+		float: none;
+		&__item{
+			display: block;
+			float: none;
+			@include transform(translateX(-100%));
+			transition: all .3s ease-out;
+			&--play {
+				display: block;
+				@include transform(translateX(0));
+			}
+		}
+		&__item + &__item {
+			border-top: 1px solid darken($clr1, 5%);
+		}
+      &__link {
+        background: $clr1;
+        &:hover {
+          background: darken($clr1, 10%);
+        }
+      }
+	}
+}
+
+/* Wrap
+-------------------------- */
+
+.wrap {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1000px;
+   .l-main & {
+    padding: 0 10px;
+  }
+}
