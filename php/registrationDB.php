@@ -45,7 +45,7 @@ $prequest = $_POST["comment"];
 $eventid = $_GET["eventid"];
     
 // Create connection
-$conn =mysqli_connect('tsmsweb.clkgrrfzqfem.us-west-2.rds.amazonaws.com', 'teamone', 'tsmsweb12', 'tsmsdb', 3306);
+
 
 $tname = "Team " . $uni;
 // Check connection
